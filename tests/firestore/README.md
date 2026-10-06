@@ -6,7 +6,7 @@ From this directory:
 
 ```sh
 npm ci
-npx firebase-tools emulators:exec --only firestore --project demo-sunset-feedback 'node check-rules.mjs'
+npx firebase-tools emulators:exec --config ../../firebase.emulators.json --only firestore --project demo-sunset-feedback 'node check-rules.mjs'
 ```
 
 Covers the one-hour-before-sunset voting window, owner access, required fields, value ranges, duplicates and denial of listing, updates, deletion and unrelated collections.
