@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {feedbackAvailability,buildFeedback,feedbackDocumentId,feedbackKey} from '../dist/feedback-model.js';
+const now=Date.now(),f={source:'open-meteo',date:'2026-10-06',sunsetTimestamp:now-3600000,retrievedAt:now-7200000,score:76,scoreModel:'heuristic-v1',location:{latitude:-8.647,longitude:115.125},weather:{high:97,mid:0,low:9,corridorClear:82,haze:18,visibilityKm:22.7,hazeSource:'aod'}};
+assert.equal(feedbackAvailability(f,now).allowed,true);
+for(const invalid of [null,{...f,source:'mock'},{...f,sunsetTimestamp:now+3600001},{...f,sunsetTimestamp:now-13*3600000},{...f,sunsetTimestamp:NaN}])assert.equal(feedbackAvailability(invalid,now).allowed,false);
+assert.equal(feedbackAvailability({...f,sunsetTimestamp:now+3600000},now).allowed,true,'opens exactly one hour before sunset');
+assert.equal(feedbackAvailability({...f,sunsetTimestamp:now+1},now).allowed,true);
+assert.equal(feedbackAvailability({...f,sunsetTimestamp:now},now).allowed,true);
+assert.equal(buildFeedback({...f,sunsetTimestamp:now+3600000,retrievedAt:now},true,'abc',now).predictionTiming,'before-sunset');
+const data=buildFeedback(f,false,'abc',now);assert.equal(data.agrees,false);assert.equal(data.verdict,'go');assert.equal(data.predictionTiming,'before-sunset');assert.equal(data.location.latitude,-8.65);assert.equal(Object.keys(data.weather).length,6);assert.equal(buildFeedback({...f,retrievedAt:now},true,'abc',now).predictionTiming,'after-sunset');assert.throws(()=>buildFeedback({...f,source:'mock'},true,'abc',now));assert.match(feedbackDocumentId(f,'abc'),/^abc_2026-10-06_/);assert.equal(feedbackKey(f),feedbackKey({...f,score:95}));assert.notEqual(feedbackKey(f),feedbackKey({...f,date:'2026-10-07'}));
+console.log('PASS: live-only, sunset window, date/location receipts, frozen inputs and pre/post sunset timing');

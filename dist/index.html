@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#202330">
+  <title>Sunset any good? · Canggu, Bali</title>
+  <meta name="description" content="Sunset any good? Find out whether today's sunset is worth a trip to the beach.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23202330'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23ffa275'/%3E%3Cpath d='M3 21h26' stroke='%23f8e4ce' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css?v=13">
+</head>
+<body>
+  <main>
+    <section class="hero" aria-label="Sunset recommendation">
+      <canvas id="sky" aria-hidden="true"></canvas>
+      <header class="masthead">
+        <a class="wordmark" href="#" aria-label="Sunset any good, home"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M2 20h26M5 25h20M8 15a7 7 0 0 1 14 0M15 2v3M4 6l3 3M26 6l-3 3"/></svg><span>sunset any good?</span></a>
+      </header>
+      <div class="verdict" aria-live="polite" aria-atomic="true">
+        <p class="eyebrow" id="date">TODAY IN CANGGU</p>
+        <h1 id="verdict" class="status">HOLD ON.</h1>
+        <p class="recommendation" id="recommendation">Looking for the last light.</p>
+      </div>
+      <div class="sunset-meta">
+        <div class="meta-line">
+          <button class="place-button" id="use-location" aria-label="Canggu, Bali. Use my location"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.4 7-12a7 7 0 0 0-14 0c0 5.6 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg><span id="location-name">Canggu, Bali</span><span class="location-hint" aria-hidden="true">↗</span></button>
+          <span class="meta-divider" aria-hidden="true">·</span><span class="meta-time"><span id="sunset-time">—</span><span class="sr-only" id="time-zone">WITA</span></span>
+        </div>
+        <div class="hero-rating" id="hero-feedback" hidden>
+          <p class="sr-only" id="feedback-question">Did tonight’s sky match the forecast?</p>
+          <div class="feedback-actions" role="group" aria-labelledby="feedback-question" aria-describedby="feedback-countdown"><button data-feedback="yes">Matched ✓</button><button data-feedback="no">Different ↗</button></div>
+          <p id="feedback-countdown" aria-live="off" hidden></p>
+          <p id="feedback-status" role="status"></p>
+        </div>
+        <div class="location-feedback"><span class="location-status" id="location-status" role="status"></span></div>
+      </div>
+      <a class="why-link" href="#forecast" aria-label="Why this forecast?"><span aria-hidden="true">↓</span></a>
+    </section>
+    <section class="forecast" id="forecast" aria-labelledby="forecast-title">
+      <div class="section-intro"><div><p class="eyebrow">BEHIND THE GLOW</p><h2 id="forecast-title">Why this sky?</h2></div><div class="score"><span id="score">—</span><span>/ 100<br>beauty score</span></div></div>
+      <p class="explanation" id="explanation"></p>
+      <div class="signal-legend" aria-label="Signal colors"><span data-tone="good">✓ Helps the glow</span><span data-tone="mixed">~ Mixed</span><span data-tone="bad">× Gets in the way</span></div>
+      <div class="factors" id="factors"></div>
+      <p class="signal-note">Cloud percentages show sky coverage. Colors show whether each input helps our model.</p>
+      <section class="calculation" id="calculation" aria-labelledby="calculation-title" hidden>
+        <div class="calculation-heading"><h3 id="calculation-title">How the score adds up</h3><span>Prototype weights</span></div>
+        <div id="calculation-rows"></div>
+        <div class="calculation-total"><span>Rounded total · limited to 0–100</span><strong id="calculation-result"></strong></div>
+        <details class="offset-note"><summary>Why start with 12 points?</summary><p>12 is a starting offset chosen for this prototype. It is not a weather measurement. We’ll revisit it, along with the weights, using observed sunsets. Displayed terms are rounded; the total uses unrounded values.</p></details>
+      </section>
+      <div class="demo-panel">
+        <div class="demo-copy"><h3>Try a different tonight.</h3><p>Four possible skies. Same beach.</p></div>
+        <div class="scenario-buttons" role="group" aria-label="Demo sunset scenarios">
+          <button data-scenario="skip" aria-pressed="false">SKIP</button>
+          <button data-scenario="maybe" aria-pressed="false">MAYBE</button>
+          <button data-scenario="go" aria-pressed="false">GO</button>
+          <button data-scenario="fuckyes" aria-pressed="false">FUCK YES</button>
+        </div>
+      </div>
+      <button class="live-button" id="show-live">Back to real forecast ↗</button>
+      <button class="location-button reset-location" id="reset-location" hidden>Back to Canggu ↩</button>
+      <details class="method"><summary>Weather data & scoring</summary><p class="source-line" id="forecast-source" aria-live="polite">LOADING SKY</p><p class="data-note" id="data-note">Getting today's forecast from Open-Meteo.</p><p>The 0–100 beauty score is our uncalibrated heuristic, not an international standard or a probability. High and middle cloud coverage provides a canvas; it does not tell us whether clouds are thin or thick. A clearer path to the setting sun helps; low clouds and haze reduce the score. Signal colors are product thresholds, not weather standards.</p><p>We combine these inputs into a rough recommendation. The weights and SKIP / MAYBE / GO / FUCK YES thresholds were chosen for this prototype and have not been validated against observed sunsets. Cloud thickness and the way aerosols scatter light matter too; more cloud cover is not always better, and some aerosols can enhance sunset colors.</p><p>The light corridor is sampled at 50, 150 and 300 km toward today's setting sun. We use the most obstructed sample, weighted toward low and middle clouds. These samples follow the sun's bearing over land or water; terrain, cloud thickness and full light-ray geometry are not modeled. This is an approximation, not a measured clear-horizon percentage.</p><p>Your location is requested only when you choose “Use my location”. Coordinates are rounded to about a kilometer and sent to Open-Meteo for weather and BigDataCloud to find the place name. BigDataCloud may use anonymous coordinate and network signals to improve its geolocation data. Location is kept in page memory until you submit feedback. Sending feedback saves your answer, approximate weather location, forecast inputs and model version in Firebase. An anonymous browser identifier prevents duplicate votes; a submission receipt is remembered in your browser.</p></details>
+      <p class="attribution">Place names: <a href="https://www.bigdatacloud.com/" target="_blank" rel="noopener noreferrer">BigDataCloud</a> · Weather: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a> · Aerosols: CAMS via Open-Meteo · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a></p>
+      <footer><a href="https://github.com/Imax1S/sunset_any_good" target="_blank" rel="noopener noreferrer">Source on GitHub ↗</a><a href="#">Back to the horizon ↑</a></footer>
+    </section>
+  </main>
+  <script type="module" src="app.js?v=17"></script>
+</body>
+</html>
