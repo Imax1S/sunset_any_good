@@ -2,9 +2,10 @@ import {getForecast,verdictFor,skyBreakdown,LOCATION,SCENARIOS} from './forecast
 import {getLiveForecast,roundedLocation,resolveLocationName} from './weather-api.js?v=6';
 import {scoreTerms} from './calculation.js?v=1';
 import {feedbackAvailability,feedbackOpensAt} from './feedback-model.js?v=2';
-import {submitFeedback,hasSubmittedFeedback} from './feedback.js?v=3';
+import {submitFeedback,hasSubmittedFeedback} from './feedback.js?v=4';
 import {drawSky} from './sky.js?v=4';
 import {forecastPhase} from './forecast-time.js?v=1';
+import {startAnalytics,trackFeedbackSaved} from './analytics.js?v=1';
 const $=selector=>document.querySelector(selector);
 let current,activeLocation=LOCATION,requestId=0,geoId=0,voteBusy=false;
 function updateFeedback(){
@@ -133,6 +134,7 @@ document.querySelectorAll('[data-scenario]').forEach(button=>button.addEventList
 let resizeFrame;new ResizeObserver(()=>{cancelAnimationFrame(resizeFrame);resizeFrame=requestAnimationFrame(()=>{if(current)drawSky($('#sky'),current);});}).observe($('.hero'));
 $('#use-location').title='Use my location for tonight’s forecast';
 drawSky($('#sky'),{weather:SCENARIOS.maybe,score:35});
+startAnalytics();
 loadLive();
 
 for(const button of document.querySelectorAll('[data-feedback]'))button.addEventListener('click',async()=>{
@@ -140,7 +142,8 @@ for(const button of document.querySelectorAll('[data-feedback]'))button.addEvent
   if(hasSubmittedFeedback(current)){updateFeedback();return;}
   const forecast=current;voteBusy=true;updateFeedback();
   try{
-    await submitFeedback(forecast,button.dataset.feedback==='yes');
+    const result=await submitFeedback(forecast,button.dataset.feedback==='yes');
+    if(!result.duplicate)trackFeedbackSaved(button.dataset.feedback==='yes');
     voteBusy=false;updateFeedback();
     if(current===forecast)$('#feedback-status').textContent='Saved. Thanks for checking the sky.';
   }catch(error){

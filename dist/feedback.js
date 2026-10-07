@@ -1,4 +1,4 @@
-import {firebaseConfig} from './firebase-config.js';
+import {firebaseConfig} from './firebase-config.js?v=2';
 import {buildFeedback,feedbackDocumentId,feedbackKey} from './feedback-model.js?v=2';
 let connection;
 function saved(f){try{return localStorage.getItem(feedbackKey(f))!==null;}catch{return false;}}

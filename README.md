@@ -27,6 +27,8 @@ Vanilla HTML, CSS and JavaScript; a responsive animated canvas. [Open-Meteo](htt
 
 The **0–100 score is an experimental heuristic**, not a standard or a probability. Votes help evaluate it; cloud thickness and full sunlight geometry are not modeled.
 
+Optional Google Analytics counts visits and `sunset_feedback_saved` events (`matched` / `different`). Set `measurementId` in your local Firebase config to enable it on HTTPS; localhost is excluded. Vote events omit coordinates, weather and Firebase UIDs.
+
 ## Checks
 
 ```sh
