@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#201e38">
+  <title>Privacy · Sunset any good?</title>
+  <meta name="description" content="What Sunset any good? collects, why, and how to control optional analytics.">
+  <link rel="stylesheet" href="styles.css?v=14">
+</head>
+<body class="privacy-page">
+  <main class="privacy-content">
+    <a class="privacy-back" href="./">← Back to the sky</a>
+    <p class="eyebrow">SUNSET ANY GOOD?</p>
+    <h1>Your sky.<br>Your choice.</h1>
+    <p class="privacy-lead">Optional analytics stays off until you allow it. The forecast and voting work either way.</p>
+    <p class="privacy-updated">Privacy policy · Updated 7 October 2026</p>
+
+    <section aria-labelledby="analytics-title">
+      <h2 id="analytics-title">Visits, only with permission</h2>
+      <p>If you choose Allow, Google Analytics uses cookies (<code>_ga</code> and <code>_ga_*</code>) and browser identifiers to measure visits, traffic sources and successful votes. It receives page views, technical browser/device information and approximate geography derived from network information. The vote event contains only “matched” or “different”.</p>
+      <p>We do not send your selected location, coordinates, weather inputs or Firebase user identifier to Analytics. Advertising personalization and Google signals are disabled. <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">How Google processes this information ↗</a></p>
+      <div class="privacy-settings"><p id="analytics-choice-status" role="status"></p><button type="button" data-analytics-settings>Change analytics choice</button></div>
+      <p>Your choice lasts 180 days in this browser. Analytics cookies are set to expire after 180 days without renewal. Decline stops future collection and removes these cookies; it does not erase data already sent. If browser storage is unavailable, your choice lasts for the current page only. Local development visits are excluded.</p>
+    </section>
+
+    <section aria-labelledby="location-title">
+      <h2 id="location-title">A location for your forecast</h2>
+      <p>We start in Canggu, Bali. Your device location is requested only when you click the location button and grant browser permission. Coordinates are rounded to two decimal places (roughly a kilometer) before being sent to <a href="https://open-meteo.com/en/terms#privacy" target="_blank" rel="noopener noreferrer">Open-Meteo</a> for weather and <a href="https://www.bigdatacloud.com/privacy-and-cookie-policy" target="_blank" rel="noopener noreferrer">BigDataCloud</a> for the place name. BigDataCloud also uses coordinate/IP pairings to improve its IP geolocation data.</p>
+      <p>We keep your selected location in page memory, unless you submit a vote. Reloading returns to Canggu. You can also use “Back to Canggu” and revoke location permission in your browser.</p>
+    </section>
+
+    <section aria-labelledby="votes-title">
+      <h2 id="votes-title">Votes help check the formula</h2>
+      <p>Submitting a vote saves your answer, forecast date and time, rounded location, weather inputs, score and model version in Google Firebase Firestore in Jakarta. Firebase anonymous authentication creates a pseudonymous identifier to prevent duplicate votes; no signup, name or email is required.</p>
+      <p>Firebase keeps authentication information in browser storage. We also remember a submission receipt locally. These records and votes currently have no automatic expiry. Visitors cannot browse other people’s votes. We use the saved forecasts and answers to evaluate and improve the sunset score.</p>
+    </section>
+
+    <section aria-labelledby="services-title">
+      <h2 id="services-title">Services and retention</h2>
+      <p>Firebase hosts this site and handles authentication and votes. Weather APIs, Google Fonts and Firebase SDKs receive network information such as your IP address when your browser requests their services. These service requests continue when optional analytics is declined. Providers may process data outside your country under their own policies. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google’s privacy policy</a> and the provider links above.</p>
+      <p>The current Analytics property retains event-level data for 2 months and user-level data for 14 months. User retention resets on new activity; aggregate reports can remain longer. <a href="https://support.google.com/analytics/answer/7667196" target="_blank" rel="noopener noreferrer">Google’s retention explanation ↗</a> Open-Meteo states that API logs, which may contain coordinates, are deleted after 90 days. We do not sell visitor data.</p>
+    </section>
+
+    <section aria-labelledby="contact-title">
+      <h2 id="contact-title">Questions or deletion requests?</h2>
+      <p>This independent prototype is maintained by <a href="https://github.com/Imax1S" target="_blank" rel="noopener noreferrer">Imax1S</a>. For privacy questions, or to request access, correction or deletion of data we can identify, <a href="https://github.com/Imax1S/sunset_any_good/issues/new" target="_blank" rel="noopener noreferrer">contact the maintainer through GitHub</a>. You can ask there for a private contact channel. Please do not post coordinates, identifiers or other private information in public issues.</p>
+      <p>You can clear site data in your browser to remove local preferences and receipts; this does not delete votes already stored in Firebase. Depending on applicable law, you may also have rights to restrict or object to processing and to complain to your local data protection authority.</p>
+    </section>
+    <footer><a href="./">Back to the sky ↑</a><a href="https://github.com/Imax1S/sunset_any_good" target="_blank" rel="noopener noreferrer">Source on GitHub ↗</a></footer>
+  </main>
+  <aside class="analytics-choice" id="analytics-choice" aria-label="Optional analytics" hidden>
+    <p>Optional Google Analytics cookies.<br><span>Help us improve this little sky. <a href="privacy.html">Privacy</a></span></p>
+    <div class="analytics-choice-actions" role="group" aria-label="Allow analytics cookies?">
+      <button type="button" data-analytics-consent="allowed" aria-pressed="false">Allow</button>
+      <button type="button" data-analytics-consent="declined" aria-pressed="false">Decline</button>
+    </div>
+  </aside>
+  <script type="module" src="analytics-choice.js?v=1"></script>
+</body>
+</html>

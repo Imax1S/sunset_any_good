@@ -5,7 +5,8 @@ import {feedbackAvailability,feedbackOpensAt} from './feedback-model.js?v=2';
 import {submitFeedback,hasSubmittedFeedback} from './feedback.js?v=4';
 import {drawSky} from './sky.js?v=4';
 import {forecastPhase} from './forecast-time.js?v=1';
-import {startAnalytics,trackFeedbackSaved} from './analytics.js?v=1';
+import {startAnalytics,trackFeedbackSaved} from './analytics.js?v=2';
+import './analytics-choice.js?v=1';
 const $=selector=>document.querySelector(selector);
 let current,activeLocation=LOCATION,requestId=0,geoId=0,voteBusy=false;
 function updateFeedback(){
